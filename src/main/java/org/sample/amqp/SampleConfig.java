@@ -6,6 +6,7 @@ import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,9 +31,11 @@ public class SampleConfig {
 		RabbitTemplate template = new RabbitTemplate(connectionFactory());
 		template.setRoutingKey("sample_queue");
 		template.setQueue("sample_queue");
+		template.setMessageConverter(new JsonMessageConverter());
 		return template;
 	}
 	
+	@Bean
 	public Queue helloWorldQueue() {
 		return new Queue("sample_queue");
 	}

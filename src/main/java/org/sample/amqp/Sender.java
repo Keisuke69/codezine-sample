@@ -9,7 +9,10 @@ public class Sender {
     public static void main(String[] args){
         ApplicationContext context = new AnnotationConfigApplicationContext(SampleConfig.class);
         AmqpTemplate amqpTemplate = context.getBean(RabbitTemplate.class);
-        amqpTemplate.convertAndSend("Hello world");
+        SimplePojo simplePojo = new SimplePojo();
+        simplePojo.setKey("ABC");
+        simplePojo.setMessage("This is message made by pojo.");
+        amqpTemplate.convertAndSend(simplePojo);
         System.out.println("Sent message.");
     }
 }
