@@ -8,7 +8,7 @@ public class Receiver {
     public static void main(String[] args){
         ApplicationContext context = new AnnotationConfigApplicationContext(SampleConfig.class);
         AmqpTemplate amqpTemplate = context.getBean(RabbitTemplate.class);
-        String message = (String)amqpTemplate.receiveAndConvert();
-        System.out.println("Receive: " + message);
+        SimplePojo simplePojo = (SimplePojo)amqpTemplate.receiveAndConvert();
+        System.out.println("Receive message: key = " + simplePojo.getKey() + ", message = " + simplePojo.getMessage());
     }
 }
